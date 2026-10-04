@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Žiema Ispanijoje 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: one 1120px column, sections separated by hairlines; data (bars, tables) carries the page, no hero image. */
+:root{
+  --bg:#f3f5f4; --surface:#ffffff; --surface-2:#e8edeb; --fg:#15232b; --fg-2:#49595f; --muted:#7a8a91; --line:#d5dcd9;
+  --accent:#0b7285; --accent-fg:#ffffff; --accent-soft:#dff2f5; --sun:#b97a00; --sun-soft:#fff1d2;
+  --good:#0a7d2a; --bad:#b83232; --s-air:#eb6834; --s-sea:#2a78d6; --grid:#e1e0d9;
+  --display:"Bricolage Grotesque", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --body:"Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f171c; --surface:#17222a; --surface-2:#1e2b34; --fg:#e8edef; --fg-2:#b4c0c6; --muted:#8798a0; --line:#2a3842;
+    --accent:#3fb8cb; --accent-fg:#0b1418; --accent-soft:#143037; --sun:#e3a94a; --sun-soft:#2b2412;
+    --good:#4fc26a; --bad:#ee7a7a; --s-air:#d95926; --s-sea:#3987e5; --grid:#2c2c2a; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f171c; --surface:#17222a; --surface-2:#1e2b34; --fg:#e8edef; --fg-2:#b4c0c6; --muted:#8798a0; --line:#2a3842;
+  --accent:#3fb8cb; --accent-fg:#0b1418; --accent-soft:#143037; --sun:#e3a94a; --sun-soft:#2b2412;
+  --good:#4fc26a; --bad:#ee7a7a; --s-air:#d95926; --s-sea:#3987e5; --grid:#2c2c2a; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px;padding-block:0 64px}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+h1{font-size:clamp(2.2rem,6vw,4rem);font-weight:800;letter-spacing:-0.02em}
+h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:700;letter-spacing:-0.01em}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0}
+a{color:var(--accent)}
+.eyebrow{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lead{font-size:1.15rem;color:var(--fg-2);max-width:62ch}
+.num{font-variant-numeric:tabular-nums}
+header.top{padding-block:40px 24px;display:grid;gap:18px}
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-block:1px solid var(--line);margin-inline:-20px;padding-inline:20px}
+nav.toc ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.toc ul::-webkit-scrollbar{display:none}
+nav.toc a{display:block;padding:10px 12px;font-size:.9rem;font-weight:500;color:var(--fg-2);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent}
+nav.toc a:hover,nav.toc a:focus-visible{color:var(--accent);border-color:var(--accent);outline:none}
+section{padding-block:40px;border-top:1px solid var(--line);display:grid;gap:22px}
+section:first-of-type{border-top:0}
+.sec-head{display:grid;gap:8px;max-width:70ch}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:4px;min-width:0}
+.kpi .v{font-family:var(--display);font-size:1.7rem;font-weight:700;letter-spacing:-0.01em}
+.kpi .l{font-size:.85rem;color:var(--fg-2)}
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.vcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:10px;align-content:start;min-width:0;position:relative}
+.vcard .rank{position:absolute;top:14px;right:14px;font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--accent);opacity:.9}
+.vcard h3{padding-right:40px}
+.vcard p{color:var(--fg-2);font-size:.95rem}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:.78rem;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--surface-2);color:var(--fg-2)}
+.tag.sun{background:var(--sun-soft);color:var(--sun)}
+.tag.sea{background:var(--accent-soft);color:var(--accent)}
+.avoid{background:var(--surface-2);border-radius:12px;padding:18px 20px;display:grid;gap:8px}
+.avoid ul{margin:0;padding-left:18px;color:var(--fg-2);display:grid;gap:4px}
+/* chart */
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:14px;min-width:0}
+.chart-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:baseline}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.85rem;color:var(--fg-2)}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+.rows{display:grid;gap:10px}
+.row{display:grid;grid-template-columns:minmax(120px,170px) 1fr;gap:12px;align-items:center}
+.row .lab{font-size:.9rem;font-weight:500;line-height:1.2}
+.row .lab small{display:block;color:var(--muted);font-weight:400;font-size:.75rem}
+.bars{display:grid;gap:3px;position:relative;min-width:0}
+.bars::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(to right,var(--grid) 0 1px,transparent 1px 25%);pointer-events:none}
+.bar{position:relative;height:14px;display:flex;align-items:center;cursor:default}
+.bar i{display:block;height:100%;width:var(--w);background:var(--c);border-radius:0 4px 4px 0;transition:width .4s ease}
+.bar b{position:absolute;left:calc(var(--w) + 6px);font-size:.78rem;font-weight:600;color:var(--fg-2);white-space:nowrap}
+.bar:hover i,.bar:focus-visible i{filter:brightness(1.08)}
+.bar:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bar[data-tip]:hover::after,.bar[data-tip]:focus-visible::after{content:attr(data-tip);position:absolute;left:0;bottom:calc(100% + 6px);background:var(--fg);color:var(--bg);font-size:.78rem;padding:6px 8px;border-radius:6px;white-space:nowrap;z-index:3}
+.axis{display:grid;grid-template-columns:minmax(120px,170px) 1fr;gap:12px}
+.axis div{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted)}
+.chart-foot{font-size:.82rem;color:var(--muted)}
+@media (prefers-reduced-motion: reduce){.bar i{transition:none}}
+/* tables */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--surface-2);position:sticky;top:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td .hi{color:var(--good);font-weight:600}
+td .lo{color:var(--bad);font-weight:600}
+.note{font-size:.85rem;color:var(--muted)}
+/* places */
+.places{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.place{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:12px;align-content:start;min-width:0}
+.place .zone{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.place .clim{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:.8rem;color:var(--fg-2)}
+.place .clim div{background:var(--surface-2);border-radius:8px;padding:8px}
+.place .clim b{display:block;font-family:var(--display);font-size:1.05rem;color:var(--fg);font-weight:700}
+.place .price{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:.85rem}
+.place .price div{border:1px dashed var(--line);border-radius:8px;padding:8px 10px}
+.place .price b{display:block;font-size:1rem}
+.place .kam{color:var(--fg-2);font-size:.93rem}
+.pm{display:grid;gap:4px;font-size:.88rem}
+.pm li{list-style:none;padding-left:18px;position:relative;color:var(--fg-2)}
+.pm li::before{position:absolute;left:0;font-weight:700}
+.pm.plus li::before{content:"+";color:var(--good)}
+.pm.minus li::before{content:"-";color:var(--bad)}
+.pm ul{margin:0;padding:0}
+/* housing */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:10px;min-width:0}
+.box ul,.box ol{margin:0;padding-left:20px;color:var(--fg-2);display:grid;gap:5px;font-size:.93rem}
+.listing-filter{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.listing-filter label{font-size:.85rem;color:var(--fg-2)}
+select,input[type=number]{font:inherit;font-size:.92rem;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);min-width:0}
+select:focus-visible,input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+details.pl{border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+details.pl summary{cursor:pointer;padding:12px 16px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;list-style:none}
+details.pl summary::-webkit-details-marker{display:none}
+details.pl summary .t{font-weight:600}
+details.pl summary .t small{display:block;color:var(--muted);font-weight:400;font-size:.8rem}
+details.pl summary .r{font-family:var(--display);font-weight:700;font-size:1.05rem;white-space:nowrap}
+details.pl summary .r small{display:block;font:inherit;font-family:var(--body);font-size:.75rem;color:var(--muted);font-weight:400;text-align:right}
+details.pl[open] summary{border-bottom:1px solid var(--line)}
+details.pl .tablewrap{border:0;border-radius:0}
+.was{color:var(--muted);text-decoration:line-through;font-size:.8rem;margin-left:4px}
+/* calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px}
+@media (max-width:760px){.calc{grid-template-columns:1fr}}
+.calc form{display:grid;gap:12px}
+.field{display:grid;gap:4px}
+.field label{font-size:.82rem;font-weight:600;color:var(--fg-2)}
+.field .hint{font-size:.78rem;color:var(--muted)}
+.fields2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.result{background:var(--accent);color:var(--accent-fg);border-radius:12px;padding:22px;display:grid;gap:14px;align-content:start}
+.result .big{font-family:var(--display);font-size:clamp(2rem,5vw,3rem);font-weight:800;line-height:1}
+.result .sub{opacity:.85;font-size:.9rem}
+.result dl{display:grid;grid-template-columns:1fr auto;gap:6px 12px;margin:0;font-size:.92rem}
+.result dt{opacity:.85}.result dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.result .warn{font-size:.8rem;opacity:.85;border-top:1px solid color-mix(in srgb,var(--accent-fg) 25%,transparent);padding-top:10px}
+/* plan */
+.steps{display:grid;gap:10px;counter-reset:s}
+.step{display:grid;grid-template-columns:44px 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.step .when{font-family:var(--display);font-weight:800;color:var(--accent);font-size:1.1rem;line-height:1.2}
+.step h4{font-size:1rem;font-weight:700;margin-bottom:4px}
+.step p{font-size:.92rem;color:var(--fg-2)}
+footer{border-top:1px solid var(--line);padding-block:28px;font-size:.85rem;color:var(--muted);display:grid;gap:10px}
+footer ul{margin:0;padding-left:18px;display:grid;gap:3px}
+@media (max-width:560px){
+  .row{grid-template-columns:96px 1fr}.axis{grid-template-columns:96px 1fr}
+  .place .clim{grid-template-columns:repeat(2,1fr)}
+  .fields2{grid-template-columns:1fr}
+}
+.lang{margin-left:auto;font-weight:600;text-decoration:none;color:var(--accent);text-transform:none;letter-spacing:0;font-size:.85rem}.eyebrow{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">3 žmonės · 2 mėnesiai · sausis-vasaris 2027 · tik Ispanijos mainland'as <a class="lang" href="ru/" lang="ru">По-русски →</a></div>
+  <h1>Žiema Ispanijoje 2027</h1>
+  <p class="lead">Kur Ispanijos žemyninėje dalyje žiemą šilčiausia, ar realu maudytis ir kiek kainuos butas trims. Visi skaičiai iš gyvų šaltinių 2026-10-03: AEMET klimato normos, Airbnb paieška konkrečioms datoms (sausio 8 - kovo 5), ispaniški nuomos portalai.</p>
+  <div class="kpis">
+    <div class="kpi"><span class="v num">17-18 °C</span><span class="l">dienos maksimumas šilčiausiose vietose sausį-vasarį (Almería, Águilas, Nerja, Málaga)</span></div>
+    <div class="kpi"><span class="v num">14-16 °C</span><span class="l">jūros temperatūra. Trumpas pasimaudymas - taip, plaukiojimas - tik su hidrokostiumu</span></div>
+    <div class="kpi"><span class="v num">nuo 650 €/mėn.</span><span class="l">2 miegamųjų butas ilgalaikėje žiemos nuomoje (Almería, Murcia); Airbnb nuo ~900 €/mėn.</span></div>
+    <div class="kpi"><span class="v num">4,5-9 tūkst. €</span><span class="l">visas biudžetas trims už 2 mėn. be skrydžių: būstas + maistas + pramogos</span></div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Skyriai"><ul>
+  <li><a href="#verdiktas">Verdiktas</a></li>
+  <li><a href="#klimatas">Kur šilčiausia</a></li>
+  <li><a href="#maudymasis">Maudymasis</a></li>
+  <li><a href="#vietoves">Vietovės</a></li>
+  <li><a href="#bustas">Būsto pasiūlymai</a></li>
+  <li><a href="#biudzetas">Biudžetas</a></li>
+  <li><a href="#planas">Planas</a></li>
+  <li><a href="#saltiniai">Šaltiniai</a></li>
+</ul></nav>
+
+<section id="verdiktas">
+  <div class="sec-head">
+    <h2>Verdiktas: trys kandidatės</h2>
+    <p class="lead">Reitingas pagal tris dalykus vienu metu: šiluma dieną, saulė ir sausumas, būsto kaina. Vienos nugalėtojos nėra, bet pietrytinis kampas (Almería - Murcia - pietinė Costa Blanca) laimi visais trim.</p>
+  </div>
+  <div class="verdict">
+    <div class="vcard"><span class="rank">1</span>
+      <h3>Almería · Roquetas de Mar</h3>
+      <div class="tagrow"><span class="tag sun">195-198 saulės h/mėn.</span><span class="tag">2,7 lietingos d.</span><span class="tag sea">jūra 15 °C</span></div>
+      <p>Vienintelė vieta, kuri yra kartu šilta (17,0-17,6 °C dieną), saulėčiausia ir sausiausia. Ir pigiausia Andalūzijoje: 2BR ilgalaikė 650-860 €/mėn., Airbnb nuo 870 €. Minusas: mažiau miesto, vėjuota, žiemą kurortinė dalis tuščia.</p>
+    </div>
+    <div class="vcard"><span class="rank">2</span>
+      <h3>Mojácar · Vera · Águilas</h3>
+      <div class="tagrow"><span class="tag sun">18,1 °C vasarį</span><span class="tag">1-2 lietingos d.</span><span class="tag sea">jūra 14,6-15,2 °C</span></div>
+      <p>Aukščiausi dienos maksimumai sąraše ir mažiausiai lietaus (&lt;200 mm per metus). Nuomos rinka sukurta žiemotojams: skelbimai „rugsėjis-gegužė", 2BR nuo 650 €. Reikia auto, infrastruktūra plona, klimato duomenys iš trumpo periodo.</p>
+    </div>
+    <div class="vcard"><span class="rank">3</span>
+      <h3>Alicante · Torrevieja</h3>
+      <div class="tagrow"><span class="tag sun">191-193 saulės h/mėn.</span><span class="tag">2,6-3,1 lietingos d.</span><span class="tag sea">jūra 14,3-15 °C</span></div>
+      <p>Saulės tiek pat, kiek Almeríjoje, bet daug didesnė pasiūla ir pigiausias Airbnb Ispanijoje (Torrevieja 2BR nuo ~1000 €/mėn.). Alicante duoda miestą, traukinius ir tramvajų. Kaina už tai: šalčiausios naktys pakrantėje (6,7-7,8 °C).</p>
+    </div>
+  </div>
+  <div class="avoid">
+    <h3>Ką žinoti apie populiariausius variantus</h3>
+    <ul>
+      <li><strong>Málaga</strong> yra puikus miestas, bet iš top 5 lietingiausia (5,4 lietingos dienos sausį, ~69 mm) ir brangiausia (Airbnb 2BR 1500-2700 €/mėn., sausio prieinamumas mid-term platformose vos 8,5 %).</li>
+      <li><strong>Marbella / Estepona</strong> žiemą vėsesnės ir lietingesnės nei Málaga (7 lietingos dienos per mėn. dėl kalnų) ir 2 kartus brangesnės. „325 saulėtos dienos" yra rinkodara, ne AEMET.</li>
+      <li><strong>Valencia</strong> turi mažiausiai saulės (174 h sausį) ir šalčiausią jūrą (13,6 °C vasarį). Miestas geriausias, klimatas blogiausias.</li>
+      <li><strong>Cádiz / Tarifa</strong>: šilčiausia jūra (16 °C) ir naktys, bet Atlanto frontai duoda 6-9 lietingas dienas, o Tarifoje vėjas pučia 300 dienų per metus. Pliusas: Kadiso karnavalas vasario 4-14.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="klimatas">
+  <div class="sec-head">
+    <h2>Kur šilčiausia: skaičiai, ne reklama</h2>
+    <p class="lead">Vasario vidutinis dienos maksimumas ir jūros temperatūra. Sausis visur ~0,5 °C vėsesnis ore, jūra sausį ~0,5 °C šiltesnė nei vasarį (vasaris yra jūros minimumas).</p>
+  </div>
+  <div class="chart" id="chart">
+    <div class="chart-head">
+      <h3>Vasario temperatūros pakrantėje, °C</h3>
+      <div class="legend"><span style="--c:var(--s-air)">Oras dieną (vid. maks.)</span><span style="--c:var(--s-sea)">Jūra (paviršius)</span></div>
+    </div>
+    <div class="rows" id="chartRows"></div>
+    <div class="axis"><div></div><div><span>0</span><span>5</span><span>10</span><span>15</span><span>20 °C</span></div></div>
+    <p class="chart-foot">Oras: AEMET 1991-2020 normos per Wikipedia klimato lenteles; Nerja pagal Motril (WMO 1981-2010), Marbella WMO 1981-2010, Águilas ir Benidorm pagal trumpesnį AEMET periodą. Jūra: seatemperature.info 10 metų vidurkiai; Cádiz pagal seatemperature.net.</p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Vieta</th><th class="n">Sausis maks./min.</th><th class="n">Vasaris maks./min.</th><th class="n">Saulė h (sau./vas.)</th><th class="n">Lietingos d. (sau./vas.)</th><th class="n">Jūra (sau./vas.)</th><th>Pastaba</th></tr></thead>
+      <tbody id="climTable"></tbody>
+    </table>
+  </div>
+  <div class="two">
+    <div class="box">
+      <h3>Mikroklimatai, kurie tikrai veikia</h3>
+      <ul>
+        <li><strong>Cabo de Gata / Almería</strong>: lietaus šešėlis, &lt;200 mm per metus, 26 lietingos dienos per metus. Vienintelis dykumos klimato (BWh) miestas žemyninėje Europoje.</li>
+        <li><strong>Costa Tropical (Almuñécar, Nerja)</strong>: Sierra de Lújar ir Almijara dengia nuo šiaurės vėjų iš Sierra Nevados. Granadoje sninga, pakrantėje 17 °C. Lietaus vis tiek kaip Málagoje.</li>
+        <li><strong>Benidorm</strong>: Sierra Helada, Puig Campana ir Sierra Cortina uždaro įlanką iš trijų pusių. 2-3 lietingos dienos per mėn.</li>
+        <li><strong>Vidaus žemė (Sevilla, Murcia)</strong>: dieną šilčiausia (18,3-18,5 °C vasarį), bet naktys 5-7 °C, šalnos ir rūkas. Ne žiemojimui.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Kiek bus „paplūdimio dienų"</h3>
+      <ul>
+        <li>Pagal WeatherSpark (1980-2016) sausio dienos maksimumas retai viršija 19,4 °C Málagoje, 18,9 °C Almeríjoje, 21 °C Alicantėje. Tai 90-asis procentilis, tad ~3 dienos per mėn. virš tų ribų.</li>
+        <li>Stebėjimai Málagoje: 2024 sausį buvo 9 dienos su ≥20 °C, 2025 sausį 8 dienos. Abu sausiai buvo ~1,1 °C šiltesni už normą.</li>
+        <li>Mano įvertis normaliam sausiui: 3-6 dienos ≥20 °C ir 10-13 dienų ≥18 °C Málagoje, Almeríjoje, Alicantėje. Vasaris prideda 1-2 °C ir dar kelias tokias dienas.</li>
+        <li>Deginimasis užuovėjoje per pietus prie 17-18 °C ir pilnos saulės yra įprastas dalykas. Maudymasis nėra.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="maudymasis">
+  <div class="sec-head">
+    <h2>Ar galima maudytis?</h2>
+    <p class="lead">Trumpai: pasinerti - taip, plaukioti - ne. Jūra visur 14-16 °C, vasaris yra metų minimumas. Čia žiemą maudosi šiaurės europiečiai pensininkai ir šalto vandens entuziastai, vietiniai - ne.</p>
+  </div>
+  <div class="two">
+    <div class="box">
+      <h3>Jūra pagal zonas (vasaris)</h3>
+      <ul>
+        <li><strong>Šilčiausia</strong>: Tarifa 15,9 °C, Cádiz ~15-16 °C (Atlanto srovė). Bet ten vėjas ir lietus.</li>
+        <li><strong>Vidurys</strong>: Costa Tropical, Málaga, Almería, Roquetas 14,8-14,9 °C.</li>
+        <li><strong>Vėsiausia</strong>: Alicante, Benidorm 14,3 °C, Valencia 13,6 °C.</li>
+        <li>surf-forecast Marbellai vasario pabaigai rekomenduoja 4/3 mm hidrokostiumą ir 3 mm batus. Be jo - 2-5 minučių „šaltas panardinimas", ne plaukiojimas.</li>
+        <li>Jei norisi maudytis kasdien: nuomotis būstą su <em>piscina climatizada exterior</em> (šildomas lauko baseinas). Įprasti bendrijų baseinai lapkritį-balandį uždaryti arba šalti.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Terminės vonios šalia pakrantės</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Vieta</th><th class="n">Vanduo</th><th>Kas tai</th><th>Nuo</th></tr></thead>
+        <tbody>
+          <tr><td>Alhama de Granada</td><td class="n">40-47 °C</td><td>nemokamos upės vonios po Balneario, visus metus; trys baseinai mažėjančios temperatūros</td><td>1 val. nuo Almuñécar, 90 km nuo Málagos</td></tr>
+          <tr><td>Baños de Sierra Alhamilla, Pechina</td><td class="n">58 °C šaltinis</td><td>istorinis arabų laikų SPA viešbutis</td><td>12-15 km nuo Almeríjos</td></tr>
+          <tr><td>Balneario San Nicolás, Alhama de Almería</td><td class="n">47,5 °C šaltinis</td><td>SPA viešbutis</td><td>25 km nuo Almeríjos</td></tr>
+          <tr><td>Balneario de Archena</td><td class="n">30-34 °C baseinai</td><td>lauko mineraliniai baseinai, terminis ratas visus metus</td><td>75 km nuo Cartagenos, 25 km nuo Murcijos</td></tr>
+          <tr><td>Balneario de Leana, Fortuna</td><td class="n">46 °C šaltinis</td><td>lauko „terminis paplūdimys", dirba ištisus metus</td><td>65 km nuo Alicante / Torreviejos</td></tr>
+          <tr><td>Baños de Mula</td><td class="n">37 °C</td><td>natūralus šaltinis su senomis pirtimis</td><td>35 km nuo Murcijos</td></tr>
+          <tr><td>Hedionda (Casares), Tolox, Montanejos</td><td class="n">21-25 °C</td><td>drungnos, ne karštos; Carratraca uždaryta nuo 2020</td><td>Estepona / Málaga / Valencia</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<section id="vietoves">
+  <div class="sec-head">
+    <h2>Vietovės iš arti</h2>
+    <p class="lead">Vienuolika zonų nuo geriausios iki palyginamosios. Kainos: ilgalaikė žiemos nuoma (<em>alquiler de temporada</em>, skelbimų kainos 2026-09/10) ir Airbnb 2 miegamųjų butams sausio 8 - kovo 5 trims žmonėms (paieška 2026-10-03). Airbnb rodo kainą per mėnesį jau su mėnesine nuolaida, be paslaugos mokesčio.</p>
+  </div>
+  <div class="places" id="places"></div>
+</section>
+
+<section id="bustas">
+  <div class="sec-head">
+    <h2>Būsto pasiūlymai</h2>
+    <p class="lead">Dvi atskiros rinkos. Airbnb - paprasta, bet 2 kartus brangiau. Ilgalaikė sezoninė nuoma per ispaniškus portalus - pigiau, bet reikia susirašinėti ir pasirašyti sutartį. Žemiau abi su realiais skaičiais.</p>
+  </div>
+  <div class="two">
+    <div class="box">
+      <h3>Airbnb: ką rodo paieška šiandien</h3>
+      <ul>
+        <li>Paieška: visas butas, ≥2 miegamieji, 3 suaugę, 2027-01-08 → 2027-03-05 (56 naktys). Kainos EUR per mėnesį, kaip rodo Airbnb (su šeimininko mėnesine nuolaida, dažnai 30-60 %).</li>
+        <li>Viso laikotarpio suma ≈ mėnesio kaina × 1,85 + Airbnb paslaugos mokestis. Realiai 2BR Torreviejoje ar Almeríjoje visam laikotarpiui išeina ~2000-2800 €, Málagoje 3000-5000 €.</li>
+        <li>Rašyk šeimininkui prieš rezervuojant: 2 mėn. žiemą dauguma duoda papildomą nuolaidą nuo rodomos kainos.</li>
+        <li>Sausis yra Airbnb „žemas sezonas" visose šiose vietose, vasaris-kovas jau „shoulder", tad kainos vasario pabaigai kyla.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Ilgalaikė žiemos nuoma: kaip rasti</h3>
+      <ul>
+        <li>Portalai: <a href="https://www.thinkspain.com/property-to-rent-long-term" target="_blank" rel="noopener">thinkSPAIN</a> (angliškai), <a href="https://enalquiler.com" target="_blank" rel="noopener">enalquiler.com</a>, idealista.com, milanuncios.com, Facebook grupės „alquiler invierno + miestas". Mid-term: Spotahome, Flatio, HousingAnywhere (brangiau, bet su sutartimi ir komunaliniais).</li>
+        <li>Ieškok frazių <em>alquiler de temporada</em>, <em>alquiler de invierno</em>, <em>de octubre a mayo</em>. Daug skelbimų nori nuo spalio iki gegužės, bet 2 mėnesių minimumą priima nemažai (Torremolinos, Fuengirola, La Manga turi tokių).</li>
+        <li>Sutartis: <em>contrato de arrendamiento de temporada</em>, nurodoma laikina priežastis (žiemojimas), 1 mėn. depozitas, „+ luz" reiškia elektra atskirai (~100-150 €/mėn. žiemą su šildymu).</li>
+        <li>Šildymo klausimas svarbesnis už kainą: didelė dalis pakrantės butų neturi centrinio šildymo. Klausk apie kondicionierių su šildymu arba radiatorius ir pietinę orientaciją.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <div class="listing-filter" style="margin-bottom:10px">
+      <label for="sortSel">Rūšiuoti skelbimus:</label>
+      <select id="sortSel"><option value="price">pagal kainą</option><option value="rating">pagal įvertinimą</option></select>
+      <span class="note">Airbnb paieška 2026-10-03, kainos keičiasi kasdien. Trys rekomenduojamos zonos išskleistos.</span>
+    </div>
+    <div id="listings" style="display:grid;gap:10px"></div>
+  </div>
+
+  <div class="two">
+    <div class="box">
+      <h3>Benidorm viešbutis visam mėnesiui</h3>
+      <ul>
+        <li>TUI „Long Stay" žiemai 2026/27 (kainos 2026-09-23): 28 naktys nuo vasario 16, 4* su puse pensiono (RH Victoria &amp; Spa) 1304 £ žmogui, Rio Park 4* su pilnu pensionu 1260 £, 3* Primavera Loix be maitinimo 804 £. Visos su skrydžiais iš Londono ir pervežimais, tad grynai viešbutis pigiau.</li>
+        <li>Hoteles Poseidon „+60" pasiūlymas: nuo 27-29 € žmogui už naktį, jei bent vienam kambaryje 60+. Poseidon Playa iki 2027-06-01 vyksta statybos.</li>
+        <li>Realus įvertis trims sausį-vasarį: 3* su puse pensiono 30-45 € žm./naktį, tai 900-1350 € žmogui per mėnesį. Trečiam žmogui reikės trivietės arba vienviečio priedo.</li>
+        <li>Palyginus su butu: 2BR 1300 € + maistas 3 žm. ~2000 € = ~3300 €/mėn., viešbutis 3 žm. ~2700-4000 €/mėn. su dviem valgymais. Panašu, tik be virtuvės ir su britų pensininkais aplink.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Teisinė pusė 2026-10-03 (keičiasi dažnai)</h3>
+      <ul>
+        <li><strong>Andalūzija</strong> (Málaga, Nerja, Almería, Mojácar, Cádiz): trumpiau nei 2 mėn. per turistinius kanalus = butas privalo turėti VFT registraciją; 2 mėn. ir ilgiau = paprasta sezoninė sutartis pagal LAU. Jūsų 2 mėnesiai yra tiesiai ant ribos: Airbnb iki 59 naktų turi būti VFT, o nuo 60 naktų gali būti ir paprastas butas su temporada sutartimi.</li>
+        <li><strong>Valencijos regionas</strong> (Alicante, Torrevieja, Benidorm, Valencia): nuo 11 naktų tai sezoninė nuoma be turistinės licencijos. Todėl Costa Blanca žiemos pasiūla didžiausia.</li>
+        <li>Nacionalinis trumpalaikės nuomos registras (NRUA) panaikintas Aukščiausiojo Teismo 2026-05-19. Rugsėjo 30 d. įsigalioję sezoninės nuomos dekretai (RDL 26/2026, 27/2026) Kongreso atmesti 2026-10-02. Šiandien jokia nacionalinė taisyklė neriboja 2 mėn. sezoninės sutarties.</li>
+        <li>Málaga nuo 2026-07-25 įvedė 3 metų moratoriumą naujiems turistiniams butams; provincijoje jų per metus sumažėjo 6,6 %. Dalis savininkų pereina į 2-11 mėn. sezoninę nuomą, tai jūsų naudai.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="biudzetas">
+  <div class="sec-head">
+    <h2>Biudžetas trims, be skrydžių</h2>
+    <p class="lead">Pragyvenimas pagal Numbeo (2026-10-02): vienam žmogui be nuomos Málagoje 722 €, Alicantėje 734 €, Almeríjoje 727 €, Valencijoje 732 € per mėnesį. Trims su bendra virtuve realiau 1400-1600 € gaminant patiems ir 1800-2200 € valgant lauke kas antrą dieną.</p>
+  </div>
+  <div class="calc">
+    <form id="calcForm" onsubmit="return false">
+      <div class="fields2">
+        <div class="field"><label for="cPlace">Zona</label><select id="cPlace"></select></div>
+        <div class="field"><label for="cType">Būsto tipas</label><select id="cType"><option value="wl">Ilgalaikė žiemos nuoma (2BR)</option><option value="ab" selected>Airbnb (2BR, mėnesio kaina)</option><option value="hotel">Viešbutis su puse pensiono (žm./naktį)</option></select></div>
+      </div>
+      <div class="fields2">
+        <div class="field"><label for="cHousing" id="cHousingLabel">Būsto kaina, €/mėn.</label><input type="number" id="cHousing" min="0" step="10"><span class="hint" id="cHousingHint"></span></div>
+        <div class="field"><label for="cNights">Naktys</label><input type="number" id="cNights" min="28" max="120" step="1" value="56"><span class="hint">Sausio 8 - kovo 5 = 56 naktys</span></div>
+      </div>
+      <div class="fields2">
+        <div class="field"><label for="cFood">Maistas ir buitis trims</label><select id="cFood"><option value="1500">Gaminam patys (1500 €/mėn.)</option><option value="2000" selected>Mišriai (2000 €/mėn.)</option><option value="2600">Restoranai dažnai (2600 €/mėn.)</option></select><span class="hint">Įskaičiuota: maistas, kavinės, komunaliniai, internetas, vietinis transportas</span></div>
+        <div class="field"><label for="cFun">Pramogos, €/žm./mėn.</label><input type="number" id="cFun" min="0" step="10" value="150"><span class="hint">Ekskursijos, SPA, sportas, kelionės po Ispaniją</span></div>
+      </div>
+      <div class="fields2">
+        <div class="field"><label for="cCar">Automobilis, €/mėn.</label><input type="number" id="cCar" min="0" step="10" value="0"><span class="hint">Nuoma + kuras. Palik 0, jei zona su miestu. Kainų čia netikrinau.</span></div>
+        <div class="field"><label for="cFee">Airbnb mokesčiai, %</label><input type="number" id="cFee" min="0" max="25" step="1" value="12"><span class="hint">Paslaugos + valymo mokestis; taikoma tik Airbnb</span></div>
+      </div>
+    </form>
+    <div class="result" aria-live="polite">
+      <div><div class="big num" id="rTotal">-</div><div class="sub">iš viso trims už visą laikotarpį</div></div>
+      <dl>
+        <dt>Vienam žmogui iš viso</dt><dd id="rPP">-</dd>
+        <dt>Vienam žmogui per mėnesį</dt><dd id="rPPM">-</dd>
+        <dt>Būstas</dt><dd id="rHousing">-</dd>
+        <dt>Maistas ir buitis</dt><dd id="rFood">-</dd>
+        <dt>Pramogos ir auto</dt><dd id="rExtra">-</dd>
+      </dl>
+      <div class="warn" id="rNote">Be skrydžių. Būsto kaina paimta iš šios dienos skelbimų vidurio, pakeisk savo radiniu.</div>
+    </div>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Scenarijus</th><th>Zona ir būstas</th><th class="n">Būstas / mėn.</th><th class="n">Maistas / mėn.</th><th class="n">Iš viso trims (56 n.)</th><th class="n">Žmogui</th></tr></thead>
+      <tbody id="presets"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="planas">
+  <div class="sec-head">
+    <h2>Ką daryti ir kada</h2>
+    <p class="lead">Svarbiausias faktas: sausio prieinamumas mid-term platformose yra mažiausias iš artimiausių 6 mėnesių (Málaga 8,5 %, Alicante 14 % Spotahome, 2026-09). Rezervuoti reikia spalį-lapkritį, ne gruodį.</p>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="when">Spa.</div><div><h4>Išsirinkti zoną ir datas</h4><p>Nuspręsti tarp „ramybė ir pigiau" (Almería / Mojácar) ir „miestas ir pasiūla" (Alicante / Málaga). Užfiksuoti datas: nuo 60 naktų Andalūzijoje atsidaro ir ne-turistiniai butai.</p></div></div>
+    <div class="step"><div class="when">Spa.-Lap.</div><div><h4>Rezervuoti būstą</h4><p>Airbnb: išsirinkti 3-5 variantus, parašyti šeimininkams dėl 2 mėn. nuolaidos, rezervuoti su nemokamu atšaukimu. Ilgalaikė: thinkSPAIN / enalquiler / idealista, paprašyti video skambučio, pasirašyti temporada sutartį, depozitas 1 mėn.</p></div></div>
+    <div class="step"><div class="when">Prieš</div><div><h4>Patikrinti būstą dėl žiemos</h4><p>Šildymas (kondicionierius su šildymu arba radiatoriai), pietinė orientacija, dvigubi langai, greitas wifi, šildomas baseinas jei svarbu, parkavimas jei bus auto. Ispaniški butai žiemą šalti iš vidaus, tai dažniausia žiemotojų klaida.</p></div></div>
+    <div class="step"><div class="when">Gru.</div><div><h4>Auto ir draudimas</h4><p>Jei zona be miesto (Mojácar, Roquetas, La Manga, Nerja) - auto nuoma 2 mėn. Europos sveikatos draudimo kortelė (EHIC) visiems trims. ES piliečiams iki 90 dienų jokių registracijų nereikia.</p></div></div>
+    <div class="step"><div class="when">Vietoje</div><div><h4>Judėti po regioną</h4><p>Alicante TRAM iki Benidorm, Renfe iki Valencijos ir Murcijos. Málaga Cercanías C1 iki Fuengirolos, AVE į Sevilją ir Kordobą. Iš Almeríjos autobusais ALSA į Cabo de Gata, Granadą (Alhambra ir sniegas Sierra Nevadoje tą pačią dieną).</p></div></div>
+  </div>
+</section>
+
+<footer id="saltiniai">
+  <strong style="color:var(--fg-2)">Šaltiniai ir datos</strong>
+  <ul>
+    <li>Klimatas: AEMET „valores climatológicos normales" (viešai 1981-2010) ir Wikipedia klimato lentelės su AEMET OpenData 1991-2020 normomis (Málaga, Almería, Alicante, Valencia, Sevilla, Cartagena, Cádiz, Tarifa, Murcia); Águilas AEMET 2009-2025, Benidorm AEMET 2012-2025; Marbella, Motril, Roquetas WMO 1981-2010; Conil Roche agrostotis 2001-2011. Mojácar stoties nėra, naudotas Águilas.</li>
+    <li>Jūra: seatemperature.info (10 metų vidurkiai), seatemperature.net, surf-forecast.com. Paplūdimio dienos: WeatherSpark 1980-2016, malaga-weather.com 2024-2025 sausio ataskaitos.</li>
+    <li>Airbnb: airbnb.com paieška 2026-10-03, 3 suaugę, visas būstas, ≥2 miegamieji, 2027-01-08 → 2027-03-05, kainos EUR.</li>
+    <li>Ilgalaikė nuoma: thinkSPAIN skelbimai (2026-10-03), enalquiler.com 60-90 m² vidurkiai (2026-09), Idealista indeksas per spaudą (2026-07/08), Spotahome / Flatio / Uniplaces (2026-09/10), Numbeo (2026-10-02), guestfavorites.com Airbnb ADR (2026-10-02).</li>
+    <li>Viešbučiai: holidaydeals4you.co.uk TUI Long Stay (2026-09-23), hotelesposeidon.com, realbenidorm.net, chollovacaciones.com.</li>
+    <li>Reguliacija: STS 620/2026 (2026-05-19, NRUA), Decreto Ley 9/2024 (Valencia), Decreto 31/2024 (Andalūzija), que.es ir euribor.com.es apie RDL 26-27/2026 atmetimą (2026-10-02), elespanol.com apie Málagos moratoriumą (2026-06).</li>
+    <li>Renginiai: Carnaval de Cádiz 2027 kalendorius (vasario 4-14, COAC finalas vasario 5).</li>
+  </ul>
+  <p>Parengta 2026-10-03. Kainos yra tos dienos skelbimų momentinė nuotrauka ir keisis.</p>
+</footer>
+</div>
+
+<script>
+const PLACES=[
+ {id:'almeria',name:'Almería · Roquetas de Mar · Aguadulce',short:'Almería / Roquetas',zone:'Costa de Almería',jan:[17.0,8.7],feb:[17.6,9.2],sun:'195 / 198 h',rain:'2,7 / 2,7',sea:[15.2,14.8],wl:[650,860],ab:[870,1500],abMid:1150,wlMid:750,cost:0.95,
+  kam:'Maksimumas saulės ir sausumo už mažiausią kainą. Tinka, jei norisi ramybės, paplūdimio promenadų ir pigaus būsto, o ne didmiesčio.',
+  plus:['Sausiausias miestas Europoje: ~2,7 lietingos dienos per mėn., per 3000 saulės val. per metus','Pigiausia Andalūzijoje: 2BR nuo 650-860 €/mėn. ilgalaikėje nuomoje, Airbnb nuo 870 €','Cabo de Gata parkas šalia, terminės vonios Pechina (58 °C) ir Alhama de Almería (47 °C) už 15-25 km'],
+  minus:['Vėjuota (vakarų vėjas ~16 km/h sausį), mažiau miesto gyvenimo nei Málagoje','Roquetas žiemą pustuštis kurortas; be auto gali būti nuobodu','Nuoma +31 % per 6 mėn. iki 2026-09, mažai skelbimų angliškuose portaluose']},
+ {id:'mojacar',name:'Mojácar · Vera · Águilas',short:'Mojácar / Águilas',zone:'Levante almeriense · Costa Cálida',jan:[17.7,8.5],feb:[18.1,9.2],sun:'nėra normų (~3000 h/m.)',rain:'2,3 / 1,4',sea:[15.1,14.6],wl:[550,1000],ab:[960,1600],abMid:1300,wlMid:800,cost:0.9,
+  kam:'Ramiausias ir bene saulėčiausias koridorius. Tinka trims, kurie dirbs nuotoliu, vaikščios ir važinės po apylinkes.',
+  plus:['Aukščiausi dienos maksimumai sąraše (18,1 °C vasarį) ir vos 1-2 lietingos dienos per mėn.','Nuomos rinka sukurta žiemotojams: Mojácar beveik visi skelbimai „rugsėjis-gegužė", 2BR nuo 650 €','Airbnb 2BR nuo ~960 €/mėn., Vera turi kompleksų su šildomu baseinu ir SPA (~1400 €)'],
+  minus:['Klimato duomenys tik iš 2009-2025 stoties, be saulės valandų normų','Plona infrastruktūra: be auto sudėtinga, žiemą dalis restoranų uždaryta','Mojácar nuoma +24 % per 6 mėn.; geri butai dingsta iki lapkričio']},
+ {id:'alicante',name:'Alicante · Torrevieja · Orihuela Costa',short:'Alicante / Torrevieja',zone:'Costa Blanca (pietūs)',jan:[17.2,6.7],feb:[17.7,7.2],sun:'191 / 193 h',rain:'3,1 / 2,6',sea:[14.9,14.3],wl:[750,1400],ab:[1000,2300],abMid:1500,wlMid:1050,cost:0.95,
+  kam:'Didžiausia pasiūla ir pigiausias Airbnb (Torrevieja vid. para 94 €). Alicante duoda miestą, Torrevieja duoda kainą.',
+  plus:['Saulės tiek pat, kiek Almeríjoje (191-193 h/mėn.), tik 2,6-3,1 lietingos dienos','Torrevieja: 2BR Airbnb nuo ~1000 €/mėn., ilgalaikė 750-1250 €; 136 žiemos skelbimų vien thinkSPAIN','TRAM iki Benidorm, Renfe iki Valencijos ir Madrido; auto nebūtinas Alicante mieste'],
+  minus:['Šalčiausios naktys pakrantėje: 6,7-7,8 °C; vakarais reikia šildymo','Torrevieja žiemą - pensininkų kurortas, estetika prasta','Alicante Spotahome sausio prieinamumas tik 14 %']},
+ {id:'benidorm',name:'Benidorm',short:'Benidorm',zone:'Costa Blanca (šiaurė)',jan:[17.3,7.5],feb:[17.4,7.7],sun:'nėra normų (~3000 h/m.)',rain:'2,6 / 2,1',sea:[15.0,14.3],wl:[1200,1600],ab:[1200,1850],abMid:1500,wlMid:1400,cost:1.0,
+  kam:'Vienintelė vieta su tikra viešbučių žiemojimo rinka: pusryčiai ir vakarienė įskaičiuoti, viskas pėsčiomis.',
+  plus:['Kalnų apsaugotas mikroklimatas (Sierra Helada, Puig Campana), 2-3 lietingos dienos','Viešbutis 3* su puse pensiono ~30-45 € žm./naktį; Airbnb 2BR nuo ~1200 €/mėn.','Nereikia auto: viskas pėsčiomis, TRAM iki Alicante'],
+  minus:['Dangoraižių kurortas, britų pensininkų centras; ne visiems','Butai brangesni nei Torreviejoje dėl viešbučių paklausos','Tiesioginių mėnesio tarifų iš Medplaya / Servigroup nėra, tik dinaminės kainos']},
+ {id:'malaga',name:'Málaga · Torremolinos · Benalmádena',short:'Málaga',zone:'Costa del Sol (centras)',jan:[17.2,7.9],feb:[17.9,8.4],sun:'183 / 189 h',rain:'5,4 / 4,6',sea:[15.2,14.8],wl:[900,1500],ab:[1500,2700],abMid:1850,wlMid:1300,cost:1.0,
+  kam:'Jei svarbus tikras miestas: muziejai, restoranai, oro uostas, Cercanías traukinys palei krantą. Mokama brangiausia kaina iš top 5.',
+  plus:['Aukšti maksimumai (17,9 °C vasarį), ~300 saulėtų dienų per metus','Didmiestis su kultūra ir maistu; Cercanías C1 iki Torremolinos ir Fuengirolos','Daugiausia mid-term platformų (Spotahome, Flatio, Uniplaces)'],
+  minus:['Lietingiausia iš top 5: 5,4 lietingos dienos sausį, ~69 mm','Brangiausia: Airbnb 2BR 1500-2700 €/mėn., ilgalaikė nuo 1250 €; sausio prieinamumas Spotahome 8,5 %','Nuo 2026-07-25 moratoriumas naujiems turistiniams butams, pasiūla traukiasi']},
+ {id:'nerja',name:'Nerja · Almuñécar · La Herradura',short:'Nerja / Almuñécar',zone:'Costa del Sol rytai · Costa Tropical',jan:[17.6,9.0],feb:[18.3,9.9],sun:'nėra normų',rain:'5,6 / 5,3',sea:[15.3,14.9],wl:[750,1200],ab:[1600,2600],abMid:1900,wlMid:1000,cost:1.0,
+  kam:'Gražiausia pakrantė iš sąrašo: uolos, įlankos, Sierra fone. Nerja yra labiausiai į žiemos nuomą orientuotas miestelis.',
+  plus:['Šilčiausi maksimumai (18,3 °C vasarį pagal Motril) ir šiltos naktys (9-10 °C), kalnai dengia nuo šiaurės vėjų','Ilgalaikė žiemos nuoma 750-1200 €/mėn., 11 iš 15 skelbimų aiškiai sezoniniai','Alhama de Granada nemokamos terminės upės vonios (40-47 °C) už 1 val.'],
+  minus:['Lietaus kaip Málagoje: 5-6 dienos per mėn.','Airbnb brangus (1600-2600 €/mėn.), nes mažas miestelis','Reikia auto, jei norisi judėti; autobusai reti']},
+ {id:'cartagena',name:'Cartagena · La Manga · Mazarrón',short:'Cartagena / La Manga',zone:'Costa Cálida (Murcia)',jan:[16.6,8.9],feb:[17.0,9.7],sun:'173 / 171 h (San Javier)',rain:'3,0 / 2,7',sea:[14.8,14.4],wl:[550,1000],ab:[1100,1800],abMid:1400,wlMid:800,cost:0.9,
+  kam:'Pigiausias klasteris kartu su Almeríja. Cartagena - tikras istorinis miestas, La Manga - tuščias žiemos kurortas.',
+  plus:['Šiltos naktys (8,9-9,7 °C), nė karto neužfiksuota žemiau 0 °C','Ilgalaikė 2BR 550-1000 €/mėn.; La Manga turi tikrų „sausis-gegužė" pasiūlymų','Terminės vonios Archena (lauko baseinai 30-34 °C) už 75 km'],
+  minus:['Mažiau saulės nei Alicantėje ar Almeríjoje (171-173 h)','La Manga ir Mazarrón žiemą miega','Mažai skelbimų angliškai (Mazarrón - vienas)']},
+ {id:'fuengirola',name:'Fuengirola · Marbella · Estepona',short:'Fuengirola / Marbella',zone:'Costa del Sol (vakarai)',jan:[16.4,9.4],feb:[16.9,10.0],sun:'nėra normų (~2900 h/m.)',rain:'7,3 / 6,7',sea:[14.7,14.2],wl:[900,2500],ab:[1700,3000],abMid:2100,wlMid:1600,cost:1.1,
+  kam:'Prabangos ir golfo zona. Žiemai prastesnis pasirinkimas nei atrodo: vėsiau ir lietingiau nei Málagoje.',
+  plus:['Šilčiausios naktys Viduržemio pusėje (9,4-10 °C)','Fuengirola pigesnė nei Marbella: ilgalaikė 900-1500 €/mėn., Cercanías į Málagą','Daug šildomų baseinų viešbučiuose (Marbella)'],
+  minus:['Daugiausia lietingų dienų Viduržemio pakrantėje: 7 per mėn. (orografinis lietus nuo Sierra Blanca)','Marbella / Estepona ilgalaikė 1750-2500+ €/mėn., Airbnb 2000-3700 €','„325 saulėtos dienos" yra rinkodara, ne AEMET']},
+ {id:'cadiz',name:'Cádiz · Conil · Chiclana',short:'Cádiz / Conil',zone:'Costa de la Luz (Atlantas)',jan:[16.2,9.5],feb:[16.8,10.5],sun:'184 / 197 h (1981-2010)',rain:'6,4 / 5,8',sea:[16.0,15.0],wl:[600,1200],ab:[950,1900],abMid:1250,wlMid:900,cost:0.9,
+  kam:'Atlanto variantas: šilčiausia jūra ir naktys, bet Atlanto frontai. Vasario 4-14 vyksta Kadiso karnavalas.',
+  plus:['Šilčiausia jūra sąraše (16 °C sausį) ir šilčiausios naktys (9,5-10,5 °C)','Conil / Chiclana turi „spalis-gegužė" nišą nuotoliniams darbuotojams, dažnai su komunaliniais: 580-1000 €/mėn.','Karnavalas 2027-02-04..14, COAC finalas vasario 5'],
+  minus:['Daugiausia lietingų dienų (6-9 per mėn.), drėgna, poniente frontai','Levante vėjas; Tarifa vėjuota per 300 dienų per metus','Angliškuose portaluose Conil skelbimų nėra, tik ispaniški']},
+ {id:'valencia',name:'Valencia',short:'Valencia',zone:'Costa de Valencia',jan:[16.8,7.5],feb:[17.4,8.0],sun:'174 / 181 h',rain:'3,9 / 3,5',sea:[14.3,13.6],wl:[1300,1750],ab:[2000,3500],abMid:2400,wlMid:1500,cost:1.0,
+  kam:'Geriausias miestas gyventi, blogiausias žiemos klimatas iš sąrašo. Tinka, jei saulė antraeilė, o miestas pirmaeilis.',
+  plus:['Tikras didmiestis: Turia parkas, Ruzafa, metro, Renfe','Vasario 2027 Spotahome prieinamumas didžiausias (20,7 %)','Mascletà kasdien nuo kovo 1, jei užsibūsite'],
+  minus:['Mažiausiai saulės (174 h sausį, 2733 h per metus) ir šalčiausia jūra (13,6 °C vasarį)','Airbnb 2BR 2000-3500 €/mėn.; ilgalaikė beveik tik 12 mėn. sutartys','Drėgna ir debesuota, Viduržemio „pilkas sausis"']},
+ {id:'sevilla',name:'Sevilla (vidaus žemė)',short:'Sevilla',zone:'Guadalquivir slėnis · palyginimui',jan:[16.3,6.0],feb:[18.3,7.0],sun:'189 / 198 h',rain:'5,9 / 5,3',sea:null,wl:null,ab:null,abMid:null,wlMid:null,cost:1.0,
+  kam:'Palyginimui: dieną vasarį šilčiausia (18,3 °C), bet naktys šalčiausios ir jūros nėra.',
+  plus:['Aukščiausias vasario dienos maksimumas sąraše','Didelis kultūrinis miestas, AVE iki Málagos per 2 val.'],
+  minus:['Šalnos (1,8 dienos sausį), rūkas slėnyje, 2026-02 šaltis iki 5 °C','6 lietingos dienos per mėn., jokios jūros']}
+];
+
+const CHART=[
+ ['Nerja / Motril',18.3,14.9,'WMO 1981-2010'],['Águilas',18.1,14.6,'AEMET 2009-2025'],['Málaga',17.9,14.8,'AEMET 1991-2020'],
+ ['Alicante',17.7,14.3,'AEMET 1991-2020'],['Almería',17.6,14.8,'AEMET 1991-2020'],['Torrevieja',17.6,14.5,'mišrūs šaltiniai'],
+ ['Benidorm',17.4,14.3,'AEMET 2012-2025'],['Valencia',17.4,13.6,'AEMET 1991-2020'],['Cartagena',17.0,14.4,'AEMET 1991-2020'],
+ ['Marbella',16.9,14.2,'WMO 1981-2010'],['Cádiz',16.8,15.0,'AEMET 1991-2020'],['Tarifa',15.5,15.9,'AEMET 1991-2020']
+];
+
+const CLIM=[
+ ['Nerja / Almuñécar (Motril)','17,6 / 9,0','18,3 / 9,9','-','5,6 / 5,3','15,3 / 14,9','WMO 1981-2010; kalnų užuovėja'],
+ ['Águilas','17,7 / 8,5','18,1 / 9,2','-','2,3 / 1,4','15,2 / 14,6','AEMET 2009-2025, trumpas periodas'],
+ ['Málaga','17,2 / 7,9','17,9 / 8,4','183 / 189','5,4 / 4,6','15,2 / 14,8','sausis 69 mm, lietingiausias iš top 5'],
+ ['Alicante','17,2 / 6,7','17,7 / 7,2','191 / 193','3,1 / 2,6','14,9 / 14,3','šalčiausios naktys pakrantėje'],
+ ['Almería','17,0 / 8,7','17,6 / 9,2','195 / 198','2,7 / 2,7','15,2 / 14,8','sausiausia; Roquetas WMO 17,5 / 18,5 maks.'],
+ ['Torrevieja','16,8 / 7,2','17,6 / 7,8','~180 / 195','~4 / 3','15,1 / 14,5','mišrūs šaltiniai, orientuotis į Alicante'],
+ ['Benidorm','17,3 / 7,5','17,4 / 7,7','-','2,6 / 2,1','15,0 / 14,3','AEMET 2012-2025'],
+ ['Valencia','16,8 / 7,5','17,4 / 8,0','174 / 181','3,9 / 3,5','14,3 / 13,6','mažiausiai saulės, šalčiausia jūra'],
+ ['Cartagena','16,6 / 8,9','17,0 / 9,7','173 / 171','3,0 / 2,7','14,8 / 14,4','niekada žemiau 0 °C'],
+ ['Marbella','16,4 / 9,4','16,9 / 10,0','-','7,3 / 6,7','14,7 / 14,2','WMO 1981-2010; 628 mm per metus'],
+ ['Cádiz','16,2 / 9,5','16,8 / 10,5','184 / 197','6,4 / 5,8','16 / 15','Atlanto frontai, šilčiausios naktys'],
+ ['Tarifa','15,3 / 10,1','15,5 / 10,5','177 / 168','7,2 / 7,2','16,6 / 15,9','vėjas 300+ dienų per metus'],
+ ['Sevilla (vidaus)','16,3 / 6,0','18,3 / 7,0','189 / 198','5,9 / 5,3','-','šalnos 1,8 d. sausį, rūkas'],
+ ['Murcia (vidaus)','17,2 / 5,3','18,5 / 6,3','198 / 198','3,2 / 3,1','-','saulėčiausia, bet naktys 5 °C']
+];
+
+/* Airbnb listings: [title, rooms, rating, reviews, price/mo, was/mo, note] */
+const LISTINGS={
+ almeria:{label:'Almería · Roquetas · Aguadulce · El Ejido',open:true,items:[
+  ['Castillo de Santa Ana Suite 3 (Roquetas)','2BR · 1 vonia',4.71,7,867,null,''],
+  ['Ideal apartment 200 m from the beach G (Almería)','2BR · 3 lovos · 2 vonios',4.82,38,931,2400,'Superhost'],
+  ['Santa Ana Castle (Roquetas)','3BR · 1 vonia',4.77,13,953,2340,''],
+  ['Coastal Destinations (Roquetas)','3BR · 5 lovos · 2 vonios',4.56,16,1144,null,''],
+  ['Apartment for 4 people (Roquetas)','2BR · 4 lovos · 1 vonia',4.64,214,1230,null,'Superhost'],
+  ['AlmeriaSuite Palm Beach Golf & Pool (El Ejido)','kompleksas, 24 butai',4.1,105,1294,2030,''],
+  ['Cozy apartment on the beach (Almería)','3BR · 3 lovos · 1 vonia',4.68,31,1352,1981,''],
+  ['Expoholidays Cabo de Gata Retamar (Almería)','2BR · 4 lovos · 1 vonia',4.62,13,1355,2522,''],
+  ['Playa Sol Village (Roquetas)','3BR · 2 vonios',4.5,4,1360,null,''],
+  ['Beachfront · Terrace · 3 BR (Almería)','3BR · 4 lovos · 1,5 vonios',4.5,6,1401,3516,'Superhost'],
+  ['Urban city apartment with terrace (Almería)','2BR · 3 lovos · 1 vonia',null,0,1449,2136,''],
+  ['Home Sweet Paraíso (Aguadulce)','2BR · 5 lovos · 1,5 vonios',4.98,50,1490,2957,'Guest favorite'],
+  ['Roquetas, Playa Serena','2BR · 3 lovos · 1 vonia',4.88,73,1891,null,'Guest favorite'],
+  ['Beachfront apartment (Roquetas)','3BR · 5 lovos · 2 vonios',4.9,40,2060,null,''],
+  ['Aguadulce Sea View','2BR · 1 vonia',4.8,5,2311,null,'Superhost']]},
+ mojacar:{label:'Mojácar · Vera · Águilas · San Juan de los Terreros',open:true,items:[
+  ['Sunny apartment in Mojácar with ocean views','2BR · 3 lovos · 1 vonia',null,0,961,3032,'nemokamas atšaukimas'],
+  ['Ground floor apt with terrace in front of the pool (Mojácar)','2BR · 3 lovos · 2 vonios',4.76,34,1086,4720,''],
+  ['Calabardina Apartment (Águilas)','3BR · 4 lovos · 1 vonia',4.94,18,1154,2053,''],
+  ['Beachfront apartment in Mojácar','2BR · 5 lovos · 2 vonios',4.94,17,1194,2539,''],
+  ['Mediterranean Luxury: Vacations by the Sea (Mojácar)','3BR · 4 lovos · 2 vonios',4.69,16,1323,null,''],
+  ['Macenas (Mojácar)','4 lovos · 2 vonios',4.81,81,1347,4866,''],
+  ['VidaMia Almeria, heated pool, spa, gym (Vera)','2BR · 3 lovos · 2 vonios',4.91,47,1406,2902,'šildomas baseinas'],
+  ['The Invincible Terreros on the Beachfront','4BR · 5 lovos · 3 vonios',4.98,41,1477,3335,''],
+  ['Alfonso 2 Apartments (Mojácar)','5 lovos · 2 vonios',4.93,30,1497,1545,'Guest favorite'],
+  ['Casa Del Mar (Águilas)','2BR · 5 lovos · 1 vonia',4.71,41,1582,1920,''],
+  ['Modern, Light-Filled Apartment Facing the Sea (Águilas)','3BR · 5 lovos · 2 vonios',5.0,8,1739,2372,''],
+  ['Macenas Yoga House (Mojácar)','2BR · 3 lovos · 2 vonios',4.95,39,1803,1860,''],
+  ['Las Yucas, walking distance to the beach (Águilas)','2BR · 3 lovos · 2 vonios',4.82,11,1993,4138,''],
+  ['Stylish Townhouse in Mojácar Playa','2BR · 3 lovos · 1,5 vonios',4.88,66,2018,3204,''],
+  ['Apart Barlovento: pool (Águilas)','3BR · 5 lovos · 2 vonios',4.93,28,2319,3022,''],
+  ['Cave House Mojácar (jacuzzi, sea view)','2BR · 3 lovos · 2 vonios',5.0,29,2364,5507,'']]},
+ alicante:{label:'Torrevieja · Alicante',open:true,items:[
+  ['112 Nice Pool Relax - Alicante Holiday (Torrevieja)','2BR · 3 lovos · 1 vonia',null,0,1016,1477,'nemokamas atšaukimas'],
+  ['Deluxe Apartment Next to Palm Avenue, 600 m Beach (Torrevieja)','2BR · 2 lovos · 1 vonia',null,0,1073,1731,'naujas skelbimas'],
+  ['Prestigious Penthouse, Large Terrace, 250 m Beach (Torrevieja)','3BR · 3 lovos · 2 vonios',5.0,7,1276,2053,''],
+  ['Sun and Shadow House, La Mata (Torrevieja)','2BR · 4 lovos · 2 vonios',5.0,11,1489,3302,''],
+  ['Renovated beach apartment with pool (Alicante)','2BR · 3 lovos · 1 vonia',4.77,30,1550,null,'datos sau. 17 - kovo 13'],
+  ['Prestige Apartment in Prime Location, 500 m Beach (Torrevieja)','3BR · 3 lovos · 2 vonios',4.81,26,1582,2554,''],
+  ['Apartment Summer Vibes (Torrevieja)','2BR · 3 lovos · 2 vonios',4.88,76,1773,2276,''],
+  ['Lovely brand new central penthouse (Alicante)','2BR · 2 lovos · 1 vonia',4.73,245,1824,null,''],
+  ['BULLRING (Alicante)','4BR · 5 lovos · 1 vonia',5.0,8,1912,null,'datos sau. 17 - vas. 22'],
+  ['Postiguet Beach Apt · Free Parking · City Center (Alicante)','2BR · 3 lovos · 1 vonia',4.74,207,1949,null,'Superhost'],
+  ['LovelyLoft Condomina (Alicante)','2BR · 3 lovos · 1 vonia',4.83,12,1965,null,'Superhost'],
+  ['Montero Rios 2A (Alicante)','2BR · 3 lovos · 1 vonia',5.0,6,2219,null,'Guest favorite'],
+  ['The heart of Alicante','2BR · 3 lovos · 2 vonios',4.89,36,2258,null,'Guest favorite'],
+  ['Between the beach and the castle (Alicante)','4BR · 4 lovos · 2 vonios',4.8,25,2272,null,'Superhost']]},
+ benidorm:{label:'Benidorm',open:false,items:[
+  ['Home Sweet Home','2BR · 3 lovos · 1 vonia',4.81,68,1207,2743,''],
+  ['Mediterranean Apartment · Pool · Parking','3BR · 4 lovos · 1 vonia',4.66,64,1226,4159,''],
+  ['Coblanca 3 Sea View','2BR · 3 lovos · 2 vonios',null,0,1311,1683,''],
+  ['Very Nice and Bright Apartment','2BR · 4 lovos · 1 vonia',4.63,46,1346,2113,'Superhost'],
+  ['The Best Place in Benidorm','2BR · 3 lovos · 1 vonia',4.85,212,1584,1635,'Superhost'],
+  ['Modern 2BR Condo · Walk to Beach','2BR · 4 lovos · 2 vonios',null,0,1658,2325,'naujas skelbimas'],
+  ['Beautiful Apartment 150 m from Beach','2BR · 3 lovos · 1 vonia',5.0,5,1687,1740,''],
+  ['Impressive Sea View Apartment','2BR · 3 lovos · 1 vonia',4.87,15,1799,2529,'Superhost'],
+  ['The Skyline Benidorm Levante','2BR · 2 lovos · 1 vonia',4.75,8,1847,1907,''],
+  ['Benidorm Front Line Levante Beach','3BR · 5 lovos · 2 vonios',4.79,239,2645,4850,'']]},
+ malaga:{label:'Málaga · Torremolinos · Benalmádena · Fuengirola',open:false,items:[
+  ['Bright 3-bedroom flat with pool near beach (Cala del Moral)','3BR · 4 lovos · 1 vonia',4.84,79,1524,3174,'Superhost'],
+  ["Oscar's Apartments (Málaga)",'2BR · 2 lovos · 1 vonia',4.74,133,1626,2391,''],
+  ["Manuel's Apartments (Fuengirola, Las Lagunas)",'6 lovos · 2 vonios',4.9,20,1668,2142,''],
+  ['Downtown apartment 150 m from the beach (Fuengirola)','2BR · 3 lovos · 1 vonia',4.83,29,1698,1955,''],
+  ['Modern Apt. Near City Centre w/ Remote Work Setup (Málaga)','2BR · 2 lovos · 1 vonia',4.8,10,1804,3103,'Guest favorite'],
+  ['MalagaSuite Duquesa Beach (Torremolinos)','2BR · 2 lovos · 1 vonia',4.89,9,1824,2876,''],
+  ['New Apartment in Fuengirola (Las Lagunas)','2BR · 2 lovos · 1 vonia',4.69,61,1870,2266,''],
+  ['Urban Oasis (Fuengirola)','3BR · 4 lovos · 2 vonios',4.42,12,1909,3414,''],
+  ['Las Antillas Front Sea View Pool (Fuengirola)','2 butai',4.8,88,2006,2070,''],
+  ['Torreblanca apartment, great views (Fuengirola)','2BR · 2 lovos · 1 vonia',4.9,49,2090,2157,''],
+  ['Stylish & Modern Fuengirola Apt, Near Beach','2BR · 3 lovos · 1 vonia',4.93,14,2285,2358,''],
+  ['Playa Bonita (Benalmádena)','2BR · 3 lovos · 1 vonia',5.0,7,2317,4174,''],
+  ['Apartamento MalagaBlink II (Málaga)','2BR · 3 lovos · 2 vonios',4.86,64,2719,5610,'Guest favorite']]},
+ nerja:{label:'Nerja',open:false,items:[
+  ['Las Palmeras 68 in Nerja','3BR · 5 lovos · 2,5 vonios',4.58,12,1604,2627,'Superhost'],
+  ['Nice ground floor apartment with pool and garden','2BR · 4 lovos · 1 vonia',4.79,105,1876,3489,'Superhost'],
+  ['Nerja 2 bed 2 bath, Large Private Pool & Parking','2BR · 3 lovos · 1,5 vonios',4.87,47,1943,3712,'Guest favorite'],
+  ["Maria's Apartments",'2 lovos · 1 vonia',4.87,46,1954,2017,'Guest favorite'],
+  ['Verano Azul 72, close to the center and beach','3BR · 5 lovos · 2 vonios',4.86,7,2082,3410,'Superhost'],
+  ['Stunning views and location near the beach','2BR · 4 lovos · 1,5 vonios',4.83,145,2581,3805,'Guest favorite']]},
+ fuengirola:{label:'Estepona',open:false,items:[
+  ['Bright and spacious 2BR with terrace in Costalita','2BR · 3 lovos · 2 vonios',4.94,16,2054,2634,''],
+  ['Amazing views, chic beach duplex','3BR · 4 lovos · 2 vonios',4.61,38,2096,2528,''],
+  ['El Mirador Beach Apartment','3BR · 5 lovos · 2 vonios',4.79,14,2137,3645,''],
+  ['Casa Esmeralda, 7 min to beach','2BR · 3 lovos · 2 vonios',4.5,6,2227,2299,''],
+  ['Casa de Koko · Luxury apartment','2BR · 3 lovos · 2 vonios',null,0,2985,3081,''],
+  ['Apartment 1st Line Beach, 2nd Floor Views Casco','2BR · 3 lovos · 2 vonios',5.0,42,3692,3810,'']]},
+ cadiz:{label:'Conil de la Frontera',open:false,items:[
+  ['Someone flew over the swallows nest','2BR · 4 lovos · 1 vonia',4.76,83,943,2413,''],
+  ["Grandma Maria's apartment",'3BR · 4 lovos · 1,5 vonios',4.71,48,1093,5012,''],
+  ['Centrally located and bright apartment','2BR · 3 lovos · 1 vonia',4.9,30,1130,1821,'Guest favorite'],
+  ['Las Bailarinas','2 butai',5.0,9,1267,2582,''],
+  ['Apartamentos de Lucio','3 lovos · 1 vonia',4.91,132,1432,1862,'Guest favorite'],
+  ['New Conil by Livingcadiz','2BR · 3 lovos',5.0,3,1776,4533,''],
+  ['Casa Vista de Ensueño','2BR · 4 lovos · 1 vonia',4.95,60,1910,2333,'Guest favorite'],
+  ['Villa with pool next to Puntalejos Beach','4BR · 4 lovos · 3,5 vonios',5.0,5,2687,7723,'']]},
+ valencia:{label:'Valencia',open:false,items:[
+  ['1 km from beach, 10 min downtown','2BR · 4 lovos · 1 vonia',4.67,271,2007,2433,''],
+  ['In Malvarosa, near the beach','3BR · 3 lovos · 2 vonios',4.76,41,2092,3292,'Superhost'],
+  ['Turia Flats','kompleksas, 5 butai',4.84,420,2671,4231,'Superhost'],
+  ['Monlar Ruzafa 3-Bedroom Apartment','3BR · 3 lovos · 1 vonia',4.91,11,2814,2904,''],
+  ['Ideal location, between beach and downtown','2BR · 2 lovos · 2 vonios',4.94,53,3115,4273,'Guest favorite'],
+  ['Ca Iconic Building','kompleksas, 5 butai',4.61,36,3467,3968,'']]}
+};
+
+const eur=n=>Math.round(n).toLocaleString('lt-LT')+' €';
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+
+/* chart */
+(function(){
+  const max=20, host=document.getElementById('chartRows');
+  host.innerHTML=CHART.map(([n,air,sea,src])=>`
+   <div class="row"><div class="lab">${esc(n)}<small>${esc(src)}</small></div>
+    <div class="bars">
+      <div class="bar" tabindex="0" data-tip="${esc(n)}: oras dieną ${air.toLocaleString('lt-LT')} °C" style="--w:${air/max*100}%;--c:var(--s-air)"><i></i><b>${air.toLocaleString('lt-LT')}</b></div>
+      <div class="bar" tabindex="0" data-tip="${esc(n)}: jūra ${sea.toLocaleString('lt-LT')} °C" style="--w:${sea/max*100}%;--c:var(--s-sea)"><i></i><b>${sea.toLocaleString('lt-LT')}</b></div>
+    </div></div>`).join('');
+})();
+
+/* climate table */
+document.getElementById('climTable').innerHTML=CLIM.map(r=>`<tr><td>${esc(r[0])}</td><td class="n">${r[1]}</td><td class="n">${r[2]}</td><td class="n">${r[3]}</td><td class="n">${r[4]}</td><td class="n">${r[5]}</td><td class="note">${esc(r[6])}</td></tr>`).join('');
+
+/* place cards */
+document.getElementById('places').innerHTML=PLACES.map((p,i)=>`
+ <article class="place">
+  <div><div class="zone">${i+1} · ${esc(p.zone)}</div><h3>${esc(p.name)}</h3></div>
+  <div class="clim">
+    <div>Sausis<b class="num">${p.jan[0].toLocaleString('lt-LT')} / ${p.jan[1].toLocaleString('lt-LT')}°</b></div>
+    <div>Vasaris<b class="num">${p.feb[0].toLocaleString('lt-LT')} / ${p.feb[1].toLocaleString('lt-LT')}°</b></div>
+    <div>Lietingos d.<b class="num">${p.rain}</b></div>
+    <div>Jūra<b class="num">${p.sea?p.sea[0].toLocaleString('lt-LT')+' / '+p.sea[1].toLocaleString('lt-LT')+'°':'-'}</b></div>
+  </div>
+  ${p.wl?`<div class="price"><div>Ilgalaikė žiemos nuoma<b class="num">${p.wl[0]}-${p.wl[1]} €/mėn.</b></div><div>Airbnb 2BR, sau. 8 - kovo 5<b class="num">${p.ab[0]}-${p.ab[1]} €/mėn.</b></div></div>`:''}
+  <p class="kam">${esc(p.kam)}</p>
+  <div class="pm plus"><ul>${p.plus.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+  <div class="pm minus"><ul>${p.minus.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+ </article>`).join('');
+
+/* listings */
+function renderListings(){
+  const sort=document.getElementById('sortSel').value;
+  const host=document.getElementById('listings');
+  host.innerHTML=Object.entries(LISTINGS).map(([k,g])=>{
+    const items=[...g.items].sort((a,b)=>sort==='price'?a[4]-b[4]:((b[2]||0)-(a[2]||0)));
+    const prices=g.items.map(x=>x[4]); const min=Math.min(...prices), max=Math.max(...prices);
+    return `<details class="pl" ${g.open?'open':''}>
+      <summary><span class="t">${esc(g.label)}<small>${g.items.length} skelbimai iš pirmo puslapio</small></span><span class="r num">${min}-${max} €<small>per mėn.</small></span></summary>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Būstas</th><th>Kambariai</th><th class="n">Įvertinimas</th><th class="n">€/mėn.</th><th class="n">~visas laikotarpis</th><th>Pastaba</th></tr></thead>
+        <tbody>${items.map(x=>`<tr><td>${esc(x[0])}</td><td>${esc(x[1])}</td><td class="n">${x[2]?x[2].toLocaleString('lt-LT')+' <span class="note">('+x[3]+')</span>':'<span class="note">naujas</span>'}</td><td class="n"><strong>${x[4].toLocaleString('lt-LT')}</strong>${x[5]?`<span class="was">${x[5].toLocaleString('lt-LT')}</span>`:''}</td><td class="n">${eur(x[4]*56/30)}</td><td class="note">${esc(x[6])}</td></tr>`).join('')}</tbody>
+      </table></div></details>`;
+  }).join('');
+}
+document.getElementById('sortSel').addEventListener('change',renderListings);
+renderListings();
+
+/* calculator */
+const F={place:document.getElementById('cPlace'),type:document.getElementById('cType'),housing:document.getElementById('cHousing'),nights:document.getElementById('cNights'),food:document.getElementById('cFood'),fun:document.getElementById('cFun'),car:document.getElementById('cCar'),fee:document.getElementById('cFee')};
+F.place.innerHTML=PLACES.filter(p=>p.wl).map(p=>`<option value="${p.id}">${esc(p.short)}</option>`).join('');
+F.place.value='alicante';
+function defaults(){
+  const p=PLACES.find(x=>x.id===F.place.value), t=F.type.value;
+  const lab=document.getElementById('cHousingLabel'), hint=document.getElementById('cHousingHint');
+  if(t==='hotel'){F.housing.value=38;lab.textContent='Viešbutis, € žmogui už naktį';hint.textContent='3* su puse pensiono Benidorme: 30-45 €. Kitur tokių pasiūlymų nėra.';}
+  else if(t==='ab'){F.housing.value=p.abMid;lab.textContent='Būsto kaina, €/mėn.';hint.textContent=`Airbnb 2BR šioje zonoje 2026-10-03: ${p.ab[0]}-${p.ab[1]} €/mėn.`;}
+  else{F.housing.value=p.wlMid;lab.textContent='Būsto kaina, €/mėn.';hint.textContent=`Ilgalaikė žiemos nuoma 2BR: ${p.wl[0]}-${p.wl[1]} €/mėn. (+ elektra ~120 €/mėn. įskaičiuota žemiau)`;}
+  calc();
+}
+function compute(o){
+  const months=o.nights/30;
+  let housing;
+  if(o.type==='hotel') housing=o.housing*3*o.nights;
+  else if(o.type==='ab') housing=o.housing*months*(1+o.fee/100);
+  else housing=(o.housing+120)*months;
+  const food=o.food*o.cost*months*(o.type==='hotel'?0.5:1);
+  const extra=(o.car+o.fun*3)*months;
+  return {housing,food,extra,total:housing+food+extra,months};
+}
+function calc(){
+  const p=PLACES.find(x=>x.id===F.place.value);
+  const r=compute({type:F.type.value,housing:+F.housing.value||0,nights:+F.nights.value||56,food:+F.food.value,fun:+F.fun.value||0,car:+F.car.value||0,fee:+F.fee.value||0,cost:p.cost});
+  document.getElementById('rTotal').textContent=eur(r.total);
+  document.getElementById('rPP').textContent=eur(r.total/3);
+  document.getElementById('rPPM').textContent=eur(r.total/3/r.months);
+  document.getElementById('rHousing').textContent=eur(r.housing);
+  document.getElementById('rFood').textContent=eur(r.food);
+  document.getElementById('rExtra').textContent=eur(r.extra);
+  document.getElementById('rNote').textContent=(F.type.value==='hotel'?'Viešbutis su puse pensiono: maisto eilutė sumažinta per pusę. ':'')+'Be skrydžių. Pragyvenimo lygis koreguotas pagal zonos kainų indeksą ('+p.cost+').';
+}
+F.place.addEventListener('change',defaults);F.type.addEventListener('change',defaults);
+['housing','nights','food','fun','car','fee'].forEach(k=>F[k].addEventListener('input',calc));
+defaults();
+
+/* presets */
+(function(){
+  const rows=[
+   ['Taupus','Roquetas de Mar, ilgalaikė žiemos nuoma',{type:'wl',housing:750,food:1500,cost:0.95}],
+   ['Vidutinis','Torrevieja / Alicante, Airbnb 2BR',{type:'ab',housing:1300,food:2000,cost:0.95}],
+   ['Patogus','Málaga centras, Airbnb 2BR',{type:'ab',housing:1850,food:2400,cost:1.0}],
+   ['Viešbutis','Benidorm 3*, pusė pensiono, 38 € žm./naktį',{type:'hotel',housing:38,food:2000,cost:1.0}]
+  ];
+  document.getElementById('presets').innerHTML=rows.map(([n,d,o])=>{
+    const r=compute({...o,nights:56,fun:150,car:0,fee:12});
+    const hm=o.type==='hotel'?eur(o.housing*3*30)+' (3 žm.)':eur(o.housing)+(o.type==='wl'?' + elektra':'');
+    return `<tr><td><strong>${n}</strong></td><td>${d}</td><td class="n">${hm}</td><td class="n">${eur(r.food/r.months)}</td><td class="n"><strong>${eur(r.total)}</strong></td><td class="n">${eur(r.total/3)}</td></tr>`;
+  }).join('');
+})();
+</script>
+
+</body>
+</html>
